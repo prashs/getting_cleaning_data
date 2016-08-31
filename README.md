@@ -14,5 +14,7 @@ This is the project submission for Getting and Cleaning Data. The R script accom
 
 # Steps to run the Script
 setwd("directory where project files are available")
+
 source("run_analysis.R")
+
 clean_data()
