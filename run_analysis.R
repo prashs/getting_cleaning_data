@@ -27,6 +27,7 @@ clean_data <- function(baseDir){
   
   experimentDataMerged <- rbind(experimentDataTest,experimentDataTrain)
   
+  #Cleaning up column names
   features[,c(2)] <- gsub("mean","Mean",features[,c(2)])
   features[,c(2)] <- gsub("std","Std",features[,c(2)])
   features[,c(2)] <- gsub("\\(","",features[,c(2)])
@@ -34,7 +35,6 @@ clean_data <- function(baseDir){
   features[,c(2)] <- gsub("-","",features[,c(2)])
   
   #4. Appropriately labels the data set with descriptive variable names.
-  #colnames(experimentDataMerged) <- gsub("-std","Std",gsub("-mean","Mean",features[,c(2)]))
   colnames(experimentDataMerged) <- features[,c(2)] 
   
   ActivityLabelMerged <- rbind(ActivityLabelTest,ActivityLabelTrain)
