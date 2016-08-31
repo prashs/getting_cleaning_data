@@ -1,7 +1,7 @@
-clean_data <- function(baseDir){
+clean_data <- function(){
   
-  testPath <- paste0(baseDir,"/","test")
-  trainPath <- paste0(baseDir,"/","train")
+  testPath <- "test"
+  trainPath <- "train"
   
   #Load Test Data
   subjectTest <- read.table(paste0(testPath,"/subject_test.txt"))
@@ -14,11 +14,11 @@ clean_data <- function(baseDir){
   ActivityLabelTrain <- read.table(paste0(trainPath,"/y_train.txt"))
   
   #Load features and add column names for easier processing afterwards
-  features <-read.table(paste0(baseDir,"/features.txt"),stringsAsFactors=FALSE)
+  features <-read.table("features.txt",stringsAsFactors=FALSE)
   colnames(features) <- c("index","column_name")
   
   #Load activity lables and add column names for easier processing afterwards
-  activityLables <- read.table(paste0(baseDir,"/activity_labels.txt"),stringsAsFactors=FALSE)
+  activityLables <- read.table("activity_labels.txt",stringsAsFactors=FALSE)
   colnames(activityLables) <- c("activity_number","activity_name")
   
   #1.Merges the training and the test sets to create one data set. 
