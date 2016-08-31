@@ -1,4 +1,4 @@
-# getting_cleaning_data
+# Getting and Cleaning Data Project
 
 This is the project submission for Getting and Cleaning Data. The R script accomplishes the following:
 
