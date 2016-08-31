@@ -27,14 +27,21 @@ clean_data <- function(baseDir){
   
   experimentDataMerged <- rbind(experimentDataTest,experimentDataTrain)
   
+  features[,c(2)] <- gsub("mean","Mean",features[,c(2)])
+  features[,c(2)] <- gsub("std","Std",features[,c(2)])
+  features[,c(2)] <- gsub("\\(","",features[,c(2)])
+  features[,c(2)] <- gsub("\\)","",features[,c(2)])
+  features[,c(2)] <- gsub("-","",features[,c(2)])
+  
   #4. Appropriately labels the data set with descriptive variable names.
-  colnames(experimentDataMerged) <- features[,c(2)]
+  #colnames(experimentDataMerged) <- gsub("-std","Std",gsub("-mean","Mean",features[,c(2)]))
+  colnames(experimentDataMerged) <- features[,c(2)] 
   
   ActivityLabelMerged <- rbind(ActivityLabelTest,ActivityLabelTrain)
   colnames(ActivityLabelMerged) <- c("activity_number")
   
   #2. Extracts only the measurements on the mean and standard deviation for each measurement.
-  columnsNeeded <- grep(".*mean.*|.*std.*", features[,2])
+  columnsNeeded <- grep(".*Mean.*|.*Std.*", features[,2])
   
   #3. Uses descriptive activity names to name the activities in the data set
   enrichedActivities <- inner_join(ActivityLabelMerged,activityLables,c("activity_number" = "activity_number"))
@@ -42,8 +49,8 @@ clean_data <- function(baseDir){
   combinedInfo <- cbind(experimentDataMerged[,columnsNeeded],enrichedActivities,subjectMerged)
   
   #5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
-  tidy <- summarise_all(group_by(combinedInfo,activity_name,subjectID), mean)
+  tidy <- summarise_all(group_by(combinedInfo,subjectID,activity_name), mean)
   
   #Write out the data set to a file
-  write.table(tidy,"tidy.txt",row.names = FALSE)
+  write.table(tidy,"tidy.txt",row.names = FALSE,quote = FALSE)
 }
